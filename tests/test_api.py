@@ -1,6 +1,6 @@
 import pytest
 import os
-from core.api import Api
+from freshtask.api import Api
 
 class TestApi:
 

@@ -150,4 +150,4 @@ cython_debug/
 *.log
 
 # Text Files
-*.txt
+tickets.txt

@@ -1,4 +1,4 @@
-import core.utils.constants as Const
+from .utils import constants as Const
 
 class Task:
 
