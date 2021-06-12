@@ -1,6 +1,7 @@
 import pytest
 import os
-from freshtask.api import Api
+from requests.exceptions import HTTPError
+from freshtasks.api import Api
 
 class TestApi:
 
@@ -49,6 +50,46 @@ class TestApi:
         
         # Assert
         assert result == expected_size
+    
+    def test_load_raw_tasks_AbnormalData1Of2(self):
+        # Arrange
+        api_key = os.environ["ENV_FRESH_SERVICE_KEY_API_B64"]
+        domain = "checkoutsupport.freshservice.com"
+        ticket = "#CHN7303"
+        expected_result = "Incorrect ticket format provided. Please read the docs"
+
+        # Act
+        try:
+            api = Api(api_key, domain)
+            raw_tasks = api._Api__load_raw_tasks(ticket)
+            result = len(raw_tasks)
+
+            result = "FAILED"
+        except IndexError as e:
+            result = str(e)
+        
+        # Assert
+        assert result == expected_result
+    
+    def test_load_raw_tasks_AbnormalData2Of2(self):
+        # Arrange
+        api_key = os.environ["ENV_FRESH_SERVICE_KEY_API_B64"]
+        domain = "checkoutsupport.freshservice.com"
+        ticket = "#CHN-CHN"
+        expected_result = "An HTTP error occured with the provided API URL"
+
+        # Act
+        try:
+            api = Api(api_key, domain)
+            raw_tasks = api._Api__load_raw_tasks(ticket)
+            result = len(raw_tasks)
+
+            result = "FAILED"
+        except HTTPError as e:
+            result = str(e)
+        
+        # Assert
+        assert result == expected_result
 
     def test_load_tasks_NormalData(self):
         # Arrange

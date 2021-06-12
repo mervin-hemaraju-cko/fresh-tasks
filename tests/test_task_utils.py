@@ -1,7 +1,7 @@
 
 import os
-from freshtask.task_utils import TaskUtils
-from freshtask.api import Api
+from freshtasks.task_utils import TaskUtils
+from freshtasks.api import Api
 
 class TestTaskUtils:
 
