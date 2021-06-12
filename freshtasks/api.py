@@ -1,9 +1,11 @@
 import requests, json
 from .task import Task
 from .utils import constants as Const
+from freshtasks.utils.helper import reformat_ticket_number
 
 class Api():
 
+    # List of possible ticket ops
     __ticket_dict = {
         "#SR" : "tickets",
         "#INC": "tickets",
@@ -17,6 +19,8 @@ class Api():
         self.domain = domain
 
     def __create_url(self, ticket_type, ticket_number) -> str:
+
+        # Create the URL template
         return Const.API_URL_TEMPLATE.format(
             self.domain, 
             self.__ticket_dict.get(ticket_type),
@@ -54,10 +58,18 @@ class Api():
 
     def load_tasks(self, ticket):
 
+        # Reformat the ticket number
+        ticket = reformat_ticket_number(ticket)
+
+        # Load the tasks
         raw_tasks = self.__load_raw_tasks(ticket)
+
+        # Initialize empty list
         tasks = []
 
+        # Iterate through all tasks and append to empty task list
         for raw_task in raw_tasks:
             tasks.append(Task(raw_task))
-        
+
+        # Return the tasks
         return tasks
