@@ -27,7 +27,10 @@ class Api():
             ticket_number
         )
 
-    def __load_raw_tasks(self, ticket):
+    def __ticket_extract(self, ticket):
+
+        # Reformat the ticket number
+        ticket = reformat_ticket_number(ticket)
 
         # Split to get ticket type and number
         ticket_params = ticket.split(Const.FLAG_TICKET_SEPARATOR)
@@ -39,6 +42,13 @@ class Api():
         # Fetch params    
         ticket_type = ticket_params[0]
         ticket_number = ticket_params[1]
+
+        return ticket_type, ticket_number
+
+    def __load_raw_tasks(self, ticket):
+
+        # Retrieve ticket params
+        ticket_type, ticket_number = self.__ticket_extract(ticket)
 
         # Construct ticket URL
         ticket_url = self.__create_url(ticket_type, ticket_number)
@@ -58,9 +68,6 @@ class Api():
 
     def load_tasks(self, ticket):
 
-        # Reformat the ticket number
-        ticket = reformat_ticket_number(ticket)
-
         # Load the tasks
         raw_tasks = self.__load_raw_tasks(ticket)
 
@@ -73,3 +80,24 @@ class Api():
 
         # Return the tasks
         return tasks
+    
+    def close_task(self, ticket, task_id):
+        # Retrieve ticket params
+        ticket_type, ticket_number = self.__ticket_extract(ticket)
+
+        # Construct ticket URL
+        ticket_url = self.__create_url(ticket_type, ticket_number)
+
+        # Construct task update URL
+        task_update_url = f"{ticket_url}/{task_id}"
+
+        # Update the ticket status
+        response = requests.put(
+            task_update_url, 
+            headers=Const.require_api_headers_template(self.api_key), 
+            data=json.dumps(Const.DICT_API_TASK_CLOSE)
+        )
+
+        # Checks if update is successfull
+        if response.status_code != 200:
+            raise requests.exceptions.HTTPError(Const.EXCEPTION_HTTP_API_UPDATE)

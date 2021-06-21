@@ -20,8 +20,11 @@ VALUE_API_TASK_STATUS_COMPLETED = 3
 
 EXCEPTION_FORMAT_TICKET = "Incorrect ticket format provided. Please read the docs"
 EXCEPTION_HTTP_API = "An HTTP error occured with the provided API URL"
+EXCEPTION_HTTP_API_UPDATE = "An HTTP error occured when trying to update the task"
 
 # Dictionary Templates
+DICT_API_TASK_CLOSE = {"status": 3}
+
 def require_api_headers_template(api_key):
     return {"Content-Type": "application/json; charset=utf-8",
             "Authorization": f"Basic {api_key}"}
