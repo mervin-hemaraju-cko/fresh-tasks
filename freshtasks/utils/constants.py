@@ -23,6 +23,15 @@ EXCEPTION_HTTP_API = "An HTTP error occured with the provided API URL"
 EXCEPTION_HTTP_API_UPDATE = "An HTTP error occured when trying to update the task"
 
 # Dictionary Templates
+
+# List of possible ticket ops
+ticket_dict = {
+    "#SR" : "tickets",
+    "#INC": "tickets",
+    "#CHN": "changes",
+    "#PRB": "problems"
+}
+
 DICT_API_TASK_CLOSE = {"status": 3}
 
 def require_api_headers_template(api_key):

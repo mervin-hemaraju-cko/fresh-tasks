@@ -1,17 +1,9 @@
 import requests, json
 from .task import Task
 from .utils import constants as Const
-from freshtasks.utils.helper import reformat_ticket_number
+from freshtasks.utils.helper import ticket_extract
 
 class Api():
-
-    # List of possible ticket ops
-    __ticket_dict = {
-        "#SR" : "tickets",
-        "#INC": "tickets",
-        "#CHN": "changes",
-        "#PRB": "problems"
-    }
 
     # Initialize the Instance class
     def __init__(self, api_key, domain) -> None:
@@ -23,32 +15,14 @@ class Api():
         # Create the URL template
         return Const.API_URL_TEMPLATE.format(
             self.domain, 
-            self.__ticket_dict.get(ticket_type),
+            Const.ticket_dict.get(ticket_type),
             ticket_number
         )
-
-    def __ticket_extract(self, ticket):
-
-        # Reformat the ticket number
-        ticket = reformat_ticket_number(ticket)
-
-        # Split to get ticket type and number
-        ticket_params = ticket.split(Const.FLAG_TICKET_SEPARATOR)
-
-        # Check if split was successful
-        if(len(ticket_params) != 2):
-            raise IndexError(Const.EXCEPTION_FORMAT_TICKET)
-
-        # Fetch params    
-        ticket_type = ticket_params[0]
-        ticket_number = ticket_params[1]
-
-        return ticket_type, ticket_number
 
     def __load_raw_tasks(self, ticket):
 
         # Retrieve ticket params
-        ticket_type, ticket_number = self.__ticket_extract(ticket)
+        ticket_type, ticket_number = ticket_extract(ticket)
 
         # Construct ticket URL
         ticket_url = self.__create_url(ticket_type, ticket_number)
@@ -83,7 +57,7 @@ class Api():
     
     def close_task(self, ticket, task_id):
         # Retrieve ticket params
-        ticket_type, ticket_number = self.__ticket_extract(ticket)
+        ticket_type, ticket_number = ticket_extract(ticket)
 
         # Construct ticket URL
         ticket_url = self.__create_url(ticket_type, ticket_number)

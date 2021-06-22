@@ -22,6 +22,21 @@ class TestTaskUtils:
         
         # Assert
         assert result == expected_size
+
+    def test_get_open_tasks_ClosedTasksOnly(self):
+        # Arrange
+        expected_size = 0
+        ticket = "#CHN-2"
+
+        # Act
+        api = Api(self.api_key, self.domain)
+        tasks = api.load_tasks(ticket)
+        task_utils = TaskUtils(tasks)
+        open_tasks = task_utils.get_open()
+        result = len(open_tasks)
+        
+        # Assert
+        assert result == expected_size
     
     def test_get_open_tasks_EmptyData(self):
         # Arrange
@@ -83,6 +98,21 @@ class TestTaskUtils:
         expected_size = 0
 
         # Act
+        task_utils = TaskUtils(tasks)
+        open_tasks = task_utils.get_completed()
+        result = len(open_tasks)
+        
+        # Assert
+        assert result == expected_size
+
+    def test_get_completed_tasks_ClosedTasksOnly(self):
+        # Arrange
+        expected_size = 2
+        ticket = "#CHN-2"
+
+        # Act
+        api = Api(self.api_key, self.domain)
+        tasks = api.load_tasks(ticket)
         task_utils = TaskUtils(tasks)
         open_tasks = task_utils.get_completed()
         result = len(open_tasks)

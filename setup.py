@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as rm:
 
 setup(
     name="freshtasks",
-    version="0.5",
+    version="0.7",
     author="Mervin Hemaraju",
     author_email="mervin.hemaraju@checkout.com",
     description="Fresh Task is a Python package that fetches a list of tasks from Fresh Service tickets.",

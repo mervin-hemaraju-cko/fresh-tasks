@@ -21,3 +21,21 @@ class TestApi:
             
         # Assert
         assert result == expected_result
+    
+        
+    testdata = [
+        ("#CHN-1","#CHN", "1"),
+        ("#INC-12","#INC", "12"),
+        ("#PRB-34","#PRB", "34"),
+        ("#SR-1234","#SR", "1234"),
+    ]
+    @pytest.mark.parametrize("ticket,expected_type,expected_number", testdata)
+    def test_ticket_extract(self,ticket,expected_type,expected_number):
+        # Arrange
+
+        # Act
+        result_type,result_number = Helper.ticket_extract(ticket)
+            
+        # Assert
+        assert result_type == expected_type
+        assert result_number == expected_number

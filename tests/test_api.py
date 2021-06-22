@@ -37,24 +37,6 @@ class TestApi:
             
         # Assert
         assert result == expected_result
-    
-    testdata = [
-        ("#CHN-1","#CHN", "1"),
-        ("#INC-12","#INC", "12"),
-        ("#PRB-34","#PRB", "34"),
-        ("#SR-1234","#SR", "1234"),
-    ]
-    @pytest.mark.parametrize("ticket,expected_type,expected_number", testdata)
-    def test_ticket_extract(self,ticket,expected_type,expected_number):
-        # Arrange
-
-        # Act
-        api = Api(self.api_key, self.domain)
-        result_type,result_number = api._Api__ticket_extract(ticket)
-            
-        # Assert
-        assert result_type == expected_type
-        assert result_number == expected_number
         
     def test_load_raw_tasks_NormalData(self):
         # Arrange
