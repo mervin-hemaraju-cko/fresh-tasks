@@ -45,15 +45,9 @@ class Api():
         # Load the tasks
         raw_tasks = self.__load_raw_tasks(ticket)
 
-        # Initialize empty list
-        tasks = []
-
         # Iterate through all tasks and append to empty task list
-        for raw_task in raw_tasks:
-            tasks.append(Task(raw_task))
-
-        # Return the tasks
-        return tasks
+        # Return the task list
+        return [Task(rt) for rt in raw_tasks]
     
     def close_task(self, ticket, task_id):
         # Retrieve ticket params

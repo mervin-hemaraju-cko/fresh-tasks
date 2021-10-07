@@ -13,3 +13,15 @@ class TaskUtils:
     
     def get_completed(self):
         return list(filter(lambda t: t.status == Const.VALUE_API_TASK_STATUS_COMPLETED, self.tasks))
+
+    def matchxact_one_by_keyword(self, keyword):
+        return next((filter(lambda t: t.title == keyword, self.tasks)), None)
+
+    def matchxact_all_by_keyword(self, keyword):
+        return list(filter(lambda t: t.title == keyword, self.tasks))
+
+    def matchword_one_by_keyword(self, keyword):
+        return next((filter(lambda t: t.title.lower() == keyword.lower(), self.tasks)), None)
+
+    def matchword_all_by_keyword(self, keyword):
+        return list(filter(lambda t: t.title.lower() == keyword.lower(), self.tasks))

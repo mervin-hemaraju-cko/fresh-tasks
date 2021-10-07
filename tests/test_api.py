@@ -6,26 +6,26 @@ from freshtasks.api import Api
 class TestApi:
 
     api_key = os.environ["ENV_FRESH_SERVICE_KEY_API_B64"]
-    domain = "checkoutsupport-fs-sandbox.freshservice.com"
-    ticket = "#CHN-3"
+    domain = os.environ["ENV_VALUE_DOMAIN_FRESHSERVICE_CKO"]
+    ticket = "#CHN-7"
 
     testdata = [
-        ("#CHN","1234", "https://checkoutsupport-fs-sandbox.freshservice.com/api/v2/changes/1234/tasks"),
-        ("#CHN","12345", "https://checkoutsupport-fs-sandbox.freshservice.com/api/v2/changes/12345/tasks"),
-        ("#CHN","123456", "https://checkoutsupport-fs-sandbox.freshservice.com/api/v2/changes/123456/tasks"),
-        ("#CHN","1234567", "https://checkoutsupport-fs-sandbox.freshservice.com/api/v2/changes/1234567/tasks"),
-        ("#PRB","1234", "https://checkoutsupport-fs-sandbox.freshservice.com/api/v2/problems/1234/tasks"),
-        ("#PRB","12345", "https://checkoutsupport-fs-sandbox.freshservice.com/api/v2/problems/12345/tasks"),
-        ("#PRB","123456", "https://checkoutsupport-fs-sandbox.freshservice.com/api/v2/problems/123456/tasks"),
-        ("#PRB","1234567", "https://checkoutsupport-fs-sandbox.freshservice.com/api/v2/problems/1234567/tasks"),
-        ("#INC","1234", "https://checkoutsupport-fs-sandbox.freshservice.com/api/v2/tickets/1234/tasks"),
-        ("#INC","12345", "https://checkoutsupport-fs-sandbox.freshservice.com/api/v2/tickets/12345/tasks"),
-        ("#INC","123456", "https://checkoutsupport-fs-sandbox.freshservice.com/api/v2/tickets/123456/tasks"),
-        ("#INC","1234567", "https://checkoutsupport-fs-sandbox.freshservice.com/api/v2/tickets/1234567/tasks"),
-        ("#SR","1234", "https://checkoutsupport-fs-sandbox.freshservice.com/api/v2/tickets/1234/tasks"),
-        ("#SR","12345", "https://checkoutsupport-fs-sandbox.freshservice.com/api/v2/tickets/12345/tasks"),
-        ("#SR","123456", "https://checkoutsupport-fs-sandbox.freshservice.com/api/v2/tickets/123456/tasks"),
-        ("#SR","1234567", "https://checkoutsupport-fs-sandbox.freshservice.com/api/v2/tickets/1234567/tasks"),
+        ("#CHN","1234", f"https://{domain}/api/v2/changes/1234/tasks"),
+        ("#CHN","12345", f"https://{domain}/api/v2/changes/12345/tasks"),
+        ("#CHN","123456", f"https://{domain}/api/v2/changes/123456/tasks"),
+        ("#CHN","1234567", f"https://{domain}/api/v2/changes/1234567/tasks"),
+        ("#PRB","1234", f"https://{domain}/api/v2/problems/1234/tasks"),
+        ("#PRB","12345", f"https://{domain}/api/v2/problems/12345/tasks"),
+        ("#PRB","123456", f"https://{domain}/api/v2/problems/123456/tasks"),
+        ("#PRB","1234567", f"https://{domain}/api/v2/problems/1234567/tasks"),
+        ("#INC","1234", f"https://{domain}/api/v2/tickets/1234/tasks"),
+        ("#INC","12345", f"https://{domain}/api/v2/tickets/12345/tasks"),
+        ("#INC","123456", f"https://{domain}/api/v2/tickets/123456/tasks"),
+        ("#INC","1234567", f"https://{domain}/api/v2/tickets/1234567/tasks"),
+        ("#SR","1234", f"https://{domain}/api/v2/tickets/1234/tasks"),
+        ("#SR","12345", f"https://{domain}/api/v2/tickets/12345/tasks"),
+        ("#SR","123456", f"https://{domain}/api/v2/tickets/123456/tasks"),
+        ("#SR","1234567", f"https://{domain}/api/v2/tickets/1234567/tasks"),
     ]
     @pytest.mark.parametrize("ticket_type,ticket_number,expected_result", testdata)
     def test_create_url_NormalData(self,ticket_type,ticket_number,expected_result):
